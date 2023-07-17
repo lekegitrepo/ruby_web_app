@@ -4,11 +4,7 @@ class App
       'Content-Type' => 'text/html',
     }
 
-    if env['REQUEST_PATH'].end_with?('.css')
-      response = File.read 'public/style.css'
-    else
-      response = File.read 'views/index.html'
-    end
+    response = File.read 'views/index.html'
 
     [200, headers, [response]]
   end
