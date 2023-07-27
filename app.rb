@@ -1,17 +1,7 @@
 require 'erb'
-require_relative './router'
+require_relative './config/routers'
 
 class App
-  attr_reader :router
-
-  def initialize
-    @router = Router.new
-    
-    router.get('/') { 'Home page '}
-    router.get('/posts') { 'Posts/Articles page '}
-    router.get('/posts/1') { 'First post/article page '}
-  end
-
   def call(env)
     headers = {
       'Content-Type' => 'text/html',
@@ -22,10 +12,12 @@ class App
   
     # response =  erb.result(binding) # File.read 'views/index.html'
 
-    response = router.build_response(env['REQUEST_PATH'])
+    response = router.build_response(env)
 
     [200, headers, [response]]
   end
+
+  private
 
   def html_template
     File.read 'views/index.html.erb'
@@ -35,5 +27,9 @@ class App
     query = env['QUERY_STRING'] # "title=ruby"
     values = query.split('=')   # ["title", "ruby"]
     values[1]                   # ruby
+  end
+
+  def router
+    Router.instance    
   end
 end
