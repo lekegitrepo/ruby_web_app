@@ -6,6 +6,8 @@ Router.draw do
     'Home page'
   end
 
+  get 'articles/index'
+
   get('/posts') { 'Posts/Articles page '}
   get('/posts/1') { 'First post/article page '}
 end
