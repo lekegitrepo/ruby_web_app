@@ -2,6 +2,7 @@ require_relative 'application_controller'
 
 class ArticlesController < ApplicationController  
   def index
-    'All Articles'
+    @title = 'All Articles'
+    @old_title = 'All Old Articles'
   end
 end
